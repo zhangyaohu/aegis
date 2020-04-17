@@ -1,0 +1,393 @@
+@import url('~image/font/iconfont.css');
+
+input,textarea,button{
+	outline: none;
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+}
+
+input {  filter: none !important;  } 
+
+input:-moz-autofill {
+  box-shadow: 0 0 0 1000px white inset !important;
+}
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: helvetica neue,arial,sans-serif;
+	font-size: 14px;
+	color: @color;
+}
+
+html, body, .app-container {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+li{
+	list-style: none;
+}
+
+.mh-tab{
+	&__container{
+		border-radius: 2px;
+		display: inline-block;
+		cursor: pointer;
+		height: 100%;
+	}
+	&__item{
+		display: inline-block;
+		padding: 0px 20px;
+		color: #fff;
+	}
+}
+
+.active{
+	background: #409eff;
+}
+.mh-input input:-ms-input-placeholder{
+	padding-left: 10px!important;
+}
+.mh-input{
+	padding-bottom: 20px;
+	white-space: nowrap;
+	position: relative;
+	display: flex;
+	input{
+		border: 1px solid #ccc;
+	  height: 40px;
+	  line-height: 40px;
+		min-width: 100px;
+		border-radius: 0 3px 3px 0px;
+		display: inline-block;
+		padding-left: 10px;
+		color: #222;
+		&::placeholder{
+			padding-left: 0px;
+		}
+		&:focus{
+			border: 1px solid #409eff;
+		}
+	}
+	&__search{
+		border-radius: 0px 2px 2px 0px!important;
+		height: 40px;
+    line-height: 40px;
+	}
+	textarea{
+		border: 1px solid #ccc;
+		min-height: 60px;
+		min-width: 100px;
+		border-radius: 5px;
+		display: inline-block;
+		padding-left: 10px;
+		&:focus{
+			border: 1px solid #409eff;
+		}
+	}
+	&__label{
+		display: inline-block;
+		padding: 9px 10px;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    font-weight: 500;
+    background-color: #dde4ed;
+    border: 1px solid #dde4ed;
+    border-right: none;
+		border-radius: 3px 0 0 3px;
+		width: 9rem;
+	}
+}
+
+.el-table th{
+	background: #e1e4e5;
+	.cell{
+		color: #222;
+		font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+		font-weight: 500;
+	}
+}
+
+.table-nodata{
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background-image: url("~image/nodata.png");
+  background-repeat: no-repeat;
+	background-size: 100%;
+	vertical-align: middle;
+	margin-bottom: 20px;
+}
+
+.empty-text{
+  position: relative;
+  height: 100%;
+  display: inline-block;
+  line-height: 180px;
+}
+
+.page-pagination{
+	display: inline-block;
+	padding: 10px 0px;
+}
+
+.btn-primary{
+	display: inline-block;
+	padding: 8px 25px;
+	border: 1px solid @success;
+	border-radius: 3px;
+	cursor: pointer;
+	background: @success;
+	color: #fff;
+	.text{
+		text-align: center;
+		width: 100%;
+		height: 100%;
+		color: #fff;
+	}
+	.icon{
+		color: #fff;
+	}
+	&:hover{
+		background: #5e7ce0;
+		transition:background-color .5s cubic-bezier(.5,.8,.5,1),background-color .5s ease-in;
+		color: #fff;
+		box-shadow: 0px 2px 2px #DCDFE6;
+	}
+}
+.icon{
+	padding-right: 5px;
+}
+
+.a-link{
+	color: #409eff;
+	cursor: pointer;
+}
+
+.a-none{
+	text-decoration: none;
+	color: #666;
+}
+.mh-inline{
+  display: inline-flex;
+}
+
+.mh-timePicker{
+	display: inline-flex;
+	padding: 0px 10px;
+}
+
+.model-close{
+	display: inline-block;
+	position: absolute;
+	right: 20px;
+	font-size: 25px;
+	&:hover{
+		cursor: pointer;
+		color: #369;
+		transition: color .5s ease-in;
+	}
+}
+
+.input_300{
+	width: 300px;
+}
+
+.mh-textarea__label{
+	vertical-align: top;
+}
+
+.btn-confirm{
+	background:#5e7ce0;
+	padding: 7px 20px;
+	cursor: pointer;
+	margin-right: 10px;
+	color: #fff;
+	border-radius: 2px;
+	&:hover{
+		background: #5e7000;
+		transition:background-color .5s cubic-bezier(.5,.8,.5,1),background-color .5s ease-in;
+		color: #fff;
+		box-shadow: 0px 2px 2px #DCDFE6;
+	}
+}
+
+.btn-cancel{
+	background:#e60808;
+	padding: 7px 20px;
+	margin-right: 10px;
+	cursor: pointer;
+	color: #fff;
+	border-radius: 2px;
+	&:hover{
+		background: #5e7000;
+		transition:background-color .5s cubic-bezier(.5,.8,.5,1),background-color .5s ease-in;
+		color: #fff;
+		box-shadow: 0px 2px 2px #DCDFE6;
+	}
+}
+
+.el-table td, .el-table th.is-leaf {
+	border-bottom: 1px solid #c8ccd6;
+}
+
+tbody tr{
+  &:nth-child(2n+1) {
+    background-color: @bcolor-odd;
+	}
+	&:nth-child(2n) {
+    background-color: @bcolor-even;
+	}
+	&:hover>td{
+	  background-color: #a2bbe0!important;
+	}
+}
+
+.is-error{
+	border:1px solid #f56c6c!important;
+}
+
+.error.error-text{
+	color: #f56c6c;
+	position: absolute;
+	font-size: 12px;
+	padding-left: 120px;
+}
+
+[v-cloak] {
+  background: #eee;
+}
+
+
+	.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color:  @menu-title-color!important;
+		padding-right: 10px;
+	}
+	.el-menu-item:hover{
+		background-color: #369!important;
+	}
+	.el-menu-item.is-active {
+		.iconfont{
+			color: @active!important;
+		}
+	 }
+
+	 .el-menu-item{
+		 .title{
+			 color: @menu-title-color;
+		 }
+	 }
+
+.el-menu-item:hover{
+	background-color: #369!important;
+}
+
+.el-menu-item.is-active {
+	.iconfont{
+		color: @active!important;
+	}
+	.title{
+		color: @active!important;
+	}
+ }
+
+ .loading-box{
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	box-sizing: border-box;
+	border-radius: 50%;
+	border-top: 10px solid #3888fa;
+	position:relative;
+	animation: a1 2s linear infinite;  //动画名为a1，在下面定义
+	//设置圆角再设置边框就会有弧线的效果
+}
+.loading-box:before,.loading-box:after{
+	content: '';
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	left: 0;
+	top: -10px;   //反复调节得到的数值
+	box-sizing: border-box;
+	border-radius: 50%;
+//在盒子的左边加两个伪类元素
+}
+.loading-box:before{
+	border-top:10px solid #e67e22;
+	transform: rotate(120deg);  //让其中一个伪类元素旋转至右边
+}
+.loading-box:after{
+	border-top:10px solid #ff005a;
+	transform: rotate(240deg);  //旋转至左边
+}
+.loading-box span{
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	color: #000;
+	font-size: 15px;
+	text-align: center;
+	line-height: 30px;
+	animation: a2 2s linear infinite;
+	//给文字也定义一个动画
+}
+//让盒子旋转起来
+@keyframes a1 {
+	to{
+		transform: rotate(360deg)
+	}
+}
+//让文字反方向旋转，实现文字不动的效果
+@keyframes a2 {
+	to{
+		transform: rotate(-360deg)
+	}
+}
+.loading-container{
+	width: 100%;
+	text-align: center;
+	vertical-align: middle;
+	height:100%;
+}
+.cover{
+	background: #fff;
+	opacity: .5;
+}
+
+.mh-search{
+	display: inline-flex;
+	&__select{
+		width: 100px;
+		margin-right: -3px;
+		.el-input{
+			font-size: .7rem;
+		}
+	}
+}
+.el-select-dropdown__item{
+	span{
+		color: #222;
+	}
+}
+
+.el-select-dropdown__item.selected{
+	span{
+		color: #409EFF;
+	}
+}
+
+.el-table th>.cell{
+	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

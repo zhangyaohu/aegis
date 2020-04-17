@@ -1,0 +1,163 @@
+{
+  "id": "1697638",
+  "name": "aegis",
+  "font_family": "iconfont",
+  "css_prefix_text": "aegis-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1089305",
+      "name": "时间",
+      "font_class": "shot_time",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "1546579",
+      "name": "排行",
+      "font_class": "paihang",
+      "unicode": "e694",
+      "unicode_decimal": 59028
+    },
+    {
+      "icon_id": "1680700",
+      "name": "数据字典",
+      "font_class": "shujuzidian",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
+      "icon_id": "1789147",
+      "name": "SQL数据集",
+      "font_class": "SQLshujuji",
+      "unicode": "e6b2",
+      "unicode_decimal": 59058
+    },
+    {
+      "icon_id": "1789257",
+      "name": "表格",
+      "font_class": "biaoge",
+      "unicode": "e6b5",
+      "unicode_decimal": 59061
+    },
+    {
+      "icon_id": "2053201",
+      "name": "索引管理",
+      "font_class": "suoyinguanli",
+      "unicode": "e6f1",
+      "unicode_decimal": 59121
+    },
+    {
+      "icon_id": "2611807",
+      "name": "云硬盘快照",
+      "font_class": "yunyingpankuaizhao",
+      "unicode": "e744",
+      "unicode_decimal": 59204
+    },
+    {
+      "icon_id": "4705901",
+      "name": "模板管理",
+      "font_class": "template-management",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "4737714",
+      "name": "my sql",
+      "font_class": "mysql",
+      "unicode": "e9d8",
+      "unicode_decimal": 59864
+    },
+    {
+      "icon_id": "4772833",
+      "name": "平台管理—主机管理",
+      "font_class": "pingtaiguanlizhujiguanli",
+      "unicode": "e64e",
+      "unicode_decimal": 58958
+    },
+    {
+      "icon_id": "5147421",
+      "name": "角色管理",
+      "font_class": "jiaoseguanli",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "5778138",
+      "name": "集群管理",
+      "font_class": "jiqunguanli",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "6487820",
+      "name": "集群",
+      "font_class": "jiqun",
+      "unicode": "e67a",
+      "unicode_decimal": 59002
+    },
+    {
+      "icon_id": "6659714",
+      "name": "风险,预警",
+      "font_class": "icon-",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "7285968",
+      "name": "用户管理",
+      "font_class": "yonghuguanli",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
+      "icon_id": "8242801",
+      "name": "异常管理",
+      "font_class": "yichangguanli",
+      "unicode": "e682",
+      "unicode_decimal": 59010
+    },
+    {
+      "icon_id": "11529681",
+      "name": "记录",
+      "font_class": "jilu",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "12550676",
+      "name": "趋势图",
+      "font_class": "qushitu",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "12587968",
+      "name": "序列",
+      "font_class": "xulie",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "12797030",
+      "name": "积分明细",
+      "font_class": "jifenmingxi",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "12889900",
+      "name": "档案资料-空间数据",
+      "font_class": "danganziliao-kongjianshuju",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "13504226",
+      "name": "历史",
+      "font_class": "lishi",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    }
+  ]
+}

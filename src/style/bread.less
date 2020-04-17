@@ -1,0 +1,46 @@
+.bread-container{
+	box-sizing: border-box;
+    height: 32px;
+    padding-right: 120px;
+    position: relative;
+    width: 100%;
+		background: @main-bcolor;
+		overflow: hidden;
+}
+.bread-item{
+	border: 1px solid #0e89e4;
+	border-radius: 2px;
+	display: inline-block;
+	margin: 5px 5px;
+	cursor: pointer;
+	font-size: 12px;
+	&__dot{
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		margin-left: 5px;
+		background: #ecafaf;;
+		border-radius: 100%;
+	}
+	&__title{
+		padding: 0px 5px;
+		font-size: 12px;
+	}
+	&__close {
+		margin-right: 10px;
+		cursor: pointer;
+	}
+}
+
+.bread-content{
+	overflow: visible;
+	padding: 0px 0px;
+	position: absolute;
+	-webkit-transition: left 0.3s ease;
+	-o-transition: left 0.3s ease;
+	transition: left 0.3s ease;
+	white-space: nowrap;
+}
+.is-active{
+	background: #4ea5ff;
+}

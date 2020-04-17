@@ -1,0 +1,51 @@
+.hepler-wrapper {
+  display: inline-block;
+  border: 1px solid @border-color;
+  width: 18px;
+  height: 18px;
+  line-height: 16px;
+  border-radius: 100%;
+  text-align: center;
+  cursor: pointer;
+  z-index: 101;
+  position: relative;
+  &:hover {
+    border: 1px solid #369 !important;
+    color: #369;
+  }
+}
+
+.tooltip-wrapper {
+  position: absolute;
+  display: none;
+  z-index: 100;
+  background: @main-bcolor;
+  color: @main-bcolor;
+  padding: 0px 33px;
+}
+
+.tooltip-content {
+  position: relative;
+  padding: 20px;
+  height: 100%;
+  width: 100%;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  background: @main-bcolor;
+  color: @color;
+	border-radius: 3px;
+	box-shadow: 1px 1px 2px #ccc, -1px -1px 2px #ccc;
+}
+
+.triangle {
+  position: absolute;
+  border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+  width: 16px;
+  height: 16px;
+  left: -9px;
+  -webkit-transform: rotate(133deg);
+  -ms-transform: rotate(133deg);
+  transform: rotate(133deg);
+  background: @main-bcolor;
+}

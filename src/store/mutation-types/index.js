@@ -1,0 +1,11 @@
+export const UPDATEMENULIST =  'updateMenuList';
+export const UPDATETABLELIST = 'updateTableList';
+export const UPDATEBREAD = 'updatebread';
+export const DELETEBREAD = 'deletebread';
+export const OPENDIALOG = 'openDialog';
+export const CLOSEDIALOG = 'closeDialog';
+export const UPDATEHEPLERTOOLTIPS = 'updateHeplerToolTip';
+export const UPDATESKIN = 'updateSkin';
+export const CREATETOAST = 'createToast';
+export const CLOSE = 'close';
+export const CLOSEALLBREAD = 'closeAllBread';

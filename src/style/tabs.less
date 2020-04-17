@@ -1,0 +1,23 @@
+
+.mh-tab{
+	cursor: pointer;
+	position: relative;
+	white-space: nowrap;
+	&__item{
+		padding: 5px 10px;
+		color: @color;
+	}
+	.active{
+		border-bottom: 2px solid @active;
+		background: none;
+		color: @active;
+	}
+	&__bar{
+		border-bottom: 1px solid @active;
+    background: none;
+    width: 100px;
+    display: inline-block;
+    position: absolute;
+    bottom: 2px;
+	}
+}

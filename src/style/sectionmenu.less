@@ -1,0 +1,31 @@
+.mh-menu{
+	width: 130pt;
+	display: inline-block;
+	height: 100%;
+	margin-right: -5px;
+	box-shadow: 1px 0px 1px #eee;
+	background: @menu-bcolor;
+	&__item{
+		height: 30px;
+		line-height: 30px;
+		cursor: pointer;
+	}
+	&__collapse{
+		display: inline-block;
+		position: absolute;
+		width: 20px;
+		height: 40px;
+		line-height: 40px;
+		border-radius: 4px;
+		border: 1px solid #ccc;
+		color: #fff;
+		top:50%; 
+		z-index: 10;
+		background: #6a5cd4;
+	}
+	.is-active{
+		.title{
+			color: @active;
+		}
+	}
+}
