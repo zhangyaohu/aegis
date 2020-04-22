@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const db = require('../mysql/dbConfig.js')
+const DataDictionaryController = require('../controller/dataDictionaryController');
+const dataDictionaryController = new DataDictionaryController();
 
 router.get('/list', async function(req, res) {
 	var param = req.query, 
@@ -59,4 +61,11 @@ router.get('/list', async function(req, res) {
 	});
 })
 
+router.get('/column/list', async function(req, res, next) {
+  return await dataDictionaryController.columnController(req, res, next);
+})
+
+router.get('/index/list', async function(req, res, next) {
+	return await dataDictionaryController.indexController(req, res, next);
+})
 module.exports = router;

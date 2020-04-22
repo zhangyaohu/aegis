@@ -3,7 +3,7 @@ import App from './App.vue';
 import {router}  from '@/router/';
 import store from '@/store/index';
 import element from '@/element/index.js';
-import {changeElementTheme, setIco} from '@/views/utils/utils';
+import {changeElementTheme} from '@/views/utils/utils';
 import 'babel-polyfill';
 
 Vue.use(element);
@@ -17,4 +17,3 @@ if(localStorage.theme)
 changeElementTheme(localStorage.theme);
 else
 changeElementTheme('default');
-setIco() 

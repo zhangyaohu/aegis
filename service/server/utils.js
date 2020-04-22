@@ -29,6 +29,7 @@ exports.encyptPwd = encyptPwd = (password,value) => {
     return jasypt.encrypt(value);
 }
 
+encyptPwd('aegis', '123456');
 //其中password为秘钥，message为要解密的密文的文本
 exports.decyptPwd = decyptPwd = (password, message) => {
     const Jasypt = require('jasypt');//引入bcryptjs

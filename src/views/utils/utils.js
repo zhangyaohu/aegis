@@ -189,8 +189,8 @@ export const getService = (data) => {
 	if(!!data){
 		let arr = data.map(item => {
 			return {
-				label: item.service,
-				value: item.service
+				label: item.service || item.SERVICE,
+				value: item.service || item.SERVICE
 			}
 		})
 		return uniqBy(arr, (item) => item.value)
@@ -229,4 +229,55 @@ export const setIco = () => {
 	ico.setAttribute('type', 'image/x-ico');
 	ico.setAttribute('href', '/public/favicon.ico');
 	document.head.append(ico);
+}
+
+export function toFixed (num, precision) {
+	let multiplier = Math.pow(10, precision + 1);
+  let wholeNumber = Math.floor(num * multiplier);
+  let ret = Math.round(wholeNumber / 10) * 10 / multiplier;
+  if (isNaN(ret)) return 0;
+  return ret
+}
+
+//保留两位小数
+export function toFixed2 (num, precision) {
+	let multiplier = Math.pow(10, precision);
+	let wholeNumber = num * multiplier;
+	let ret = Math.floor(wholeNumber * multiplier) / multiplier;
+	if (isNaN(ret)) return 0;
+  return ret
+}
+
+export function sizeRound(size) {
+	var K = 1024;
+	var M = K * K;
+	var G = M * K;
+	var T = G * K;
+	var P = T * K;
+
+	var sizeMap = {
+		'K': K,
+		'M': M,
+		'G': G,
+		'T': T,
+		'P': P
+	};
+
+	var suffixes = ['P', 'T', 'G', 'M', 'K'];
+	function round() {
+		var s = suffixes.shift();
+		if (!size || size < 1024) {
+			return size
+		}
+
+		var q = sizeMap[s];
+		var ret = size / q;
+		if (ret >= 1) {
+			return toFixed(ret, 2) + ' ' + s
+		} else {
+			return round()
+		}
+	}
+
+	return round()
 }

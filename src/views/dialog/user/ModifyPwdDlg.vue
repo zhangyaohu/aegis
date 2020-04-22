@@ -128,7 +128,7 @@ export default {
 			return {
 				password: _this.password,
 				// oldPassword: _this.oldPassword
-				id: _this.dialogData.param.param.id
+				username: _this.dialogData.param.param.username
 			}
 		},
 		submit() {

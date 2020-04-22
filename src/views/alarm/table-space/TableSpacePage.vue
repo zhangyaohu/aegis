@@ -19,7 +19,7 @@
           style="padding: 0px 10px 0px 0px;"
         />
       </span>
-      <button class="btn-primary" @click="search">
+      <button class="btn-primary" @click="pageIndex = 1;search()">
         <i class="icon el-icon-search"></i>
         <span class="text">搜索</span>
       </button>
@@ -54,7 +54,7 @@
             style="padding: 0px 10px 10px 0px"
             class="mh-inline"
           />
-          <button class="btn-primary">
+          <button class="btn-primary" @click="pageHistoryIndex = 1; handleWatchHistroy()">
             <i class="icon el-icon-search"></i>
             <span class="text">搜索</span>
           </button>
@@ -302,6 +302,7 @@ export default {
     },
     //获得查询历史条件
     getHistoryCondition(param) {
+      debugger;
       let _this = this;
       return {
         tablespace:param.tablespace,
@@ -312,8 +313,9 @@ export default {
           "yyyy-MM-dd hh:mm:ss"
         ),
         endtime: formatDateTime(param.gmt_create, "yyyy-MM-dd hh:mm:ss"),
-        limit: _this.pageHisotrySize,
-        start: ( _this.pageHistoryIndex - 1 ) * _this.pageHisotrySize
+        limit: _this.pageHistorySize,
+        start: ( _this.pageHistoryIndex - 1 ) * _this.pageHistorySize,
+        service: param.service
       };
     },
     //查看历史回调
@@ -381,6 +383,10 @@ export default {
       _this.pageHistoryIndex = pageIndex;
       _this.handleWatchHistroy();
     },
+    leaveDrawer(e) {
+      debugger;
+      this.showDrawer=false
+    }
   }
 };
 </script>

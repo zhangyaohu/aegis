@@ -12,6 +12,7 @@ let config = {
 			for (let it in data) {
 				ret += it + '=' + data[it] + '&'
 			}
+			console.log(ret);
 			return ret;
 		}
 	],
@@ -63,9 +64,10 @@ axios.interceptors.response.use(res => {
 			position: 'top-right',
 		});
 	}
+	console.log(error);
 	if(/^[4][0-9][0-9]$/.test(String(error.response.status))) {
 		app.$notify.error({
-			 message: error.response.data.message,
+			 message: error.response.data.message ? error.response.data.message : error.response.data.data,
 			 position: 'top-right',
 		});
 	}

@@ -37,7 +37,7 @@
     <template slot="page-table">
       <mh-table v-if="currSelectTable === 'quote'" :data-source="dataSource" :loading="loading">
         <template slot="sql_id" slot-scope="scope">
-          <a class="a-link" @click="!scope.data.handle && handle()">{{scope.data.sql_id}}</a>
+          <a class="a-link" @click="watchDetail(scope.data)">{{scope.data.sql_id}}</a>
         </template>
       </mh-table>
       <mh-table
@@ -61,6 +61,9 @@
         ></pagination>
       </div>
     </template>
+    <template slot="page-footer">
+      <sql-quote-detail :param="detailParam" v-if="showDetail" @close="showDetail = false;"></sql-quote-detail>
+    </template>
   </page-template>
 </template>
 
@@ -68,14 +71,16 @@
 import Mixins from "@/mixins/Mixins";
 import Tabs from "@/views/components/tab/Tabs";
 import { formatDateTime, getService } from "@/views/utils/utils";
-import SqlQuoteApi from "@/views/oracle/Sql-quote/sqlQuoteApi";
+import SqlQuoteApi from "@/views/oracle/sql-quote/sqlQuoteApi";
 import pagination from "@/views/components/pagination/Pagination";
+import SqlQuoteDetail from '@/views/oracle/sql-quote/components/SqlQuoteDetail';
 export default {
   name: "Sql-quote",
   mixins: [Mixins],
   components: {
     "mh-tabs": Tabs,
-    pagination
+    pagination,
+    "sql-quote-detail": SqlQuoteDetail
   },
   data() {
     let _this = this;
@@ -91,6 +96,8 @@ export default {
       content: "说明: 每天采集1次,execs是sql在1天内的执行次数.",
       selectVal: "service",
       searchStr: "",
+      detailParam: {},
+      showDetail: false,
       conditionNameList: [
         {
           label: "实例名",
@@ -315,7 +322,7 @@ export default {
   methods: {
      //查询service
     queryService() {
-      let _this = this;
+      let _this = this;   
      return  SqlQuoteApi.queryList().then(resp => {
         _this.tabs = getService(resp.data);
         _this.currSelectTab = _this.tabs[0] && _this.tabs[0].value;
@@ -325,6 +332,7 @@ export default {
       let _this = this;
       if (_this.currSelectTab === tab.value) return;
       _this.currSelectTab = tab.value;
+      _this.pageIndex = 1;
       _this[
         `query${_this.currSelectTable.charAt(0).toUpperCase() +
           _this.currSelectTable.slice("1")}List`
@@ -335,7 +343,13 @@ export default {
       return {
         limit: _this.pageSize,
         start: (_this.pageIndex - 1) * _this.pageSize,
-        [_this.selectVal]: _this.searchStr.trim()
+        starttime: formatDateTime(
+          new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
+          "yyyy-MM:dd hh:mm:ss"
+        ),
+        endtime: formatDateTime(new Date(), "yyyy-MM-dd hh:mm:ss"),
+        [_this.selectVal]: _this.searchStr.trim(),
+        service: _this.currSelectTab
       };
     },
     toggleTableTab(tab) {
@@ -374,11 +388,12 @@ export default {
       let _this = this;
       return {
         starttime: formatDateTime(
-          new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000),
+          new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
           "yyyy-MM:dd hh:mm:ss"
         ),
         endtime: formatDateTime(new Date(), "yyyy-MM-dd hh:mm:ss"),
-        [_this.selectVal]: _this.searchStr.trim()
+        [_this.selectVal]: _this.searchStr.trim(),
+        service: _this.currSelectTab
       };
     },
     getNoSqlBindCondition() {
@@ -386,7 +401,13 @@ export default {
       return {
         limit: _this.pageSize,
         start: (_this.pageIndex - 1) * _this.pageSize,
-        [_this.selectVal]: _this.searchStr.trim()
+        [_this.selectVal]: _this.searchStr.trim(),
+         starttime: formatDateTime(
+          new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
+          "yyyy-MM:dd hh:mm:ss"
+        ),
+        endtime: formatDateTime(new Date(), "yyyy-MM-dd hh:mm:ss"),
+        service: _this.currSelectTab
       };
     },
     querySectorList() {
@@ -419,6 +440,7 @@ export default {
           })
           .then(() => {
             _this.sqlBindList = _this.$store.state.db.sqlNoBind;
+            _this.total = resp.total;
             _this.loading = false;
           })
           .catch(() => {
@@ -487,10 +509,16 @@ export default {
     },
     search() {
       let _this = this;
+      _this.pageIndex = 1;
       _this[
         `query${_this.currSelectTable.charAt(0).toUpperCase() +
           _this.currSelectTable.slice("1")}List`
       ]();
+    },
+    watchDetail(param) {
+      let _this = this;
+      _this.detailParam = param;
+      _this.showDetail = true;
     }
   }
 };

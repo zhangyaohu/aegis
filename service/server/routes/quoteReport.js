@@ -68,7 +68,9 @@ router.get('/record/list', async function(req, res) {
 	if(param.service && param.service !== '') {
 		sqlStr+=` and service='${param.service}'`
 	}
-	sqlStr+=` and owner='${param.owner}'`
+	if(param.owner && param.owner !== '') {
+		sqlStr+=` and owner='${param.owner}'`
+	}
 	if(param.table_name && param.table_name !== '') {
 		sqlStr +=` and table_name='${param.table_name}'`
 	}
@@ -104,6 +106,7 @@ router.get('/record/list', async function(req, res) {
 		console.log(JSON.stringify(rows));
 		total = JSON.parse(JSON.stringify(rows))[0].total;
 	})
+	console.log(sql);
 	db.query(sql, (err,rows) => {
    res.json({
 		 status: 200,

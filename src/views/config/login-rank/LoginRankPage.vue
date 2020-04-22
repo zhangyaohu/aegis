@@ -15,7 +15,7 @@
           end-placeholder="结束日期"
         ></el-date-picker>
       </div>
-      <button class="btn-primary" @click="queryList()">
+      <button class="btn-primary" @click="pageIndex = 1; queryList()">
         <i class="icon el-icon-search"></i>
         <span class="text">搜索</span>
       </button>

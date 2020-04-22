@@ -27,7 +27,7 @@
           style="padding: 0px  0px 0px;"
         />
       </span>
-      <button class="btn-primary" style="margin-left: 10px;" @click="currSelectTab === 'list' ? queryList() : queryRoleList()">
+      <button class="btn-primary" style="margin-left: 10px;" @click="pageIndex = 1; currSelectTab === 'list' ? queryList() : queryRoleList()">
         <i class="icon el-icon-search"></i>
         <span class="text">搜索</span>
       </button>

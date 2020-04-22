@@ -6,6 +6,7 @@
 
 <script>
 import Vue from "vue";
+import { setIco } from '@/views/utils/utils';
 import Input from "@/views/components/Input";
 import Table from "@/views/components/table/Table";
 import State from "@/views/components/state/State";
@@ -34,7 +35,11 @@ Vue.component("State", State);
 //详情组件模板
 Vue.component("detail-template", DetailTemplate)
 export default {
-	name:'App'
+	name:'App',
+	mounted() {
+		let _this = this;
+		//setIco()
+	}
 }
 </script>
 

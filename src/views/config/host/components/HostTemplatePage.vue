@@ -18,7 +18,7 @@
           style="padding: 0px  0px 0px;"
         />
       </span>
-      <button class="btn-primary" style="margin-left: 10px;" @click="queryList()">
+      <button class="btn-primary" style="margin-left: 10px;" @click="pageIndex = 1; queryList()">
         <i class="icon el-icon-search"></i>
         <span class="text">搜索</span>
       </button>
@@ -150,6 +150,7 @@ export default {
     },
     queryList() {
       let _this = this;
+      _this.loading = true;
       HostManagerApi.queryTemplate(_this.getCondition()).then(resp => {
         _this
           .updateTableList({

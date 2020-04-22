@@ -51,6 +51,10 @@ export default {
 			 }
 		 }
 	 },
+	 mounted() {
+		 let _this = this;
+		 window.addEventListener('keyup', _this.keyUpSubmit)
+	 },
 	 methods: {
 		 //单个校验表单
 		 validate(arg) {
@@ -73,13 +77,18 @@ export default {
 		 //提交表单
 		 submit() {
 			 let _this = this;
-			 console.log(_this.validateAll());
 			 if(_this.validateAll()) return;
 			 _this.loading = true;
 			 LoginHttpApi.login(_this.confirmParam())
 			    .then((resp) => {
-						if(resp.message !== '用户名或密码错误' || res.message !== '该用户还没有注册!') {
+						console.log(resp);
+						if(resp.code === 200) {
+							localStorage.username= _this.name;
 							_this.$router.push('/alarm-list');
+						}else if(resp.code === 400) {
+							_this.$notify.error({
+								message: '用户名或者密码错误!'
+							})
 						}
 						_this.loading = false;
 					}).catch(() => {
@@ -93,7 +102,18 @@ export default {
 				 name: _this.name,
 				 password: _this.password
 			 }
+		 },
+		 //回车键提交表单
+		 keyUpSubmit(e) {
+			 let _this = this;
+			 if(e.keyCode && e.keyCode === 13) {
+         _this.submit();
+			 }
 		 }
 	 },
+	 destroyed() {
+		 let _this = this;
+		 window.removeEventListener('keyup', _this.keyUpSubmit)
+	 }
 }
 </script>

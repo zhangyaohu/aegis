@@ -310,7 +310,6 @@ export default {
         _option.series = series;
         //设置纵轴标题
         _option.yAxis.name = _this.sname ? _this.sname + "/5min" : "";
-        console.log(_option);
         //画图表
         chart.setOption(_option);
         _this.resizeChart();

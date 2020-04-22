@@ -20,7 +20,7 @@
           inputClass="mh-input__search"
           style="padding: 0px 10px 0px 0px;"
         />
-        <button class="btn-primary" @click="historyQuery()">
+        <button class="btn-primary" @click="pageIndex = 1; historyQuery()">
           <i class="icon el-icon-search"></i>
           <span class="text">搜索</span>
         </button>
@@ -142,12 +142,14 @@ export default {
         start: (_this.pageIndex - 1) * _this.pageSize,
         sort: `${_this.sortDirection}${_this.sortBy}`,
 				sequence: _this.param.sequence,
-				starttime: formatDateTime(new Date().getTime() - 30 * 24 * 60 * 60 * 1000 ,  'yyyy-MM-dd hh:mm:ss'),
-				endtime: formatDateTime(new Date().getTime(), 'yyyy-MM-dd hh:mm:ss')
+				starttime: formatDateTime(new Date(_this.param.gmt_create).getTime() - 30 * 24 * 60 * 60 * 1000 ,  'yyyy-MM-dd hh:mm:ss'),
+        endtime: formatDateTime(new Date(_this.param.gmt_create).getTime(), 'yyyy-MM-dd hh:mm:ss'),
+        service: _this.param.service
       };
     },
     historyQuery() {
-			let _this = this;
+      let _this = this;
+      _this.loading = true;
       return OrderReportApi.queryList(_this.getCondition()).then(resp => {
         _this
           .updateTableList({

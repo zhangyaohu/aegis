@@ -66,7 +66,8 @@ router.post('/modifyPwd', async function (req, res, next) {
 	try {
 		var hash = encyptPwd('aegis', req.body.password);
 		let sql = `update  users set password = '${hash}',
-																		gmt_modified='${formatDateTime(new Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}' where id=${req.body.id}`
+																		gmt_modified='${formatDateTime(new Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}' where username='${req.body.username}'`;
+																		console.log(sql);
 		await db.query(sql, (err, rows) => {
 			if (!err)
 				res.json({ status: 200, code: 200, data: '修改成功' });

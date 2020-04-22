@@ -29,7 +29,14 @@
 						</li>
 					</ul>
 				</span>
-				<span class="mh-header__layout" @click="() => $router.push({name: 'login'})">退出</span>
+				<span class="mh-header__layout">
+					<span class="mh-header__layout__image"></span>
+					<ul class="mh-header__layout_item__content">
+						<li>{{getUserName}}</li>
+						<li @click="modifyPwd()">修改密码</li>
+						<li @click="() => $router.push({name: 'login'})">退出登录</li>
+					</ul>
+				</span>
 			</div>
 	 </header>
 </template>
@@ -37,6 +44,7 @@
 <script>
 import { changeElementTheme } from '@/views/utils/utils';
 import {alarmList, oracleList, configList} from './menuList';
+import UserManagerApi from '@/views/config/user/userManagerApi';
 import Mixins from '@/mixins/Mixins';
 export default {
 	name: 'Header',
@@ -53,6 +61,11 @@ export default {
 		_this.currSelectTab = _this.$router.history.current.fullPath.split('/')[1];
 		//更新左侧菜单栏
 		_this.updateMenuList(_this.handleSet(_this.currSelectTab));
+	},
+	computed: {
+    getUserName() {
+			return localStorage.username ? localStorage.username : '';
+		}
 	},
 	methods: {
 		//切换头部tab
@@ -106,7 +119,20 @@ export default {
 			_this.updateSkin(theme);
 			//切换加载的css
 			changeElementTheme(theme);
-		}
+		},
+		  //修改密码
+    modifyPwd() {
+      let _this = this;
+      _this.openDialog("ModifyPwdDlg", {
+        param: {username: localStorage.username},
+        ok: (msg) => {
+            return UserManagerApi.modifyPwd(msg)
+                               .then((resp) => {
+                                 _this.$notify.info({message: resp.data, position: 'top-right'});
+                               })
+        }
+      })
+    },
 	},
 	watch: {
 		'$route': function(newVal, oldVal) {

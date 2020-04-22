@@ -19,7 +19,7 @@
           style="padding: 0px 10px 0px 0px;"
         />
       </span>
-      <button class="btn-primary" @click="queryList()">
+      <button class="btn-primary" @click="pageIndex = 1; queryList()">
         <i class="icon el-icon-search"></i>
         <span class="text">搜索</span>
       </button>
@@ -62,7 +62,7 @@ export default {
       historyParam: {},
       itemList: [],
       pageIndex: 1,
-      pageSize: 20,
+      pageSize: 10,
       loading: false,
       searchStr: '',
       selectVal: 'service',

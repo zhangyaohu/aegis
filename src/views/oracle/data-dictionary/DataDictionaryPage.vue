@@ -27,7 +27,7 @@
           style="padding: 0px 10px 0px 0px;"
         />
       </span>
-      <button class="btn-primary" @click="queryList()">
+      <button class="btn-primary" @click="pageIndex = 1; queryList()">
         <i class="icon el-icon-search"></i>
         <span class="text">搜索</span>
       </button>
@@ -36,10 +36,10 @@
     <template slot="page-table">
       <mh-table :data-source="dataSource" :loading="loading">
         <template slot="column_info" slot-scope="scope">
-          <a class="a-link" @click="!scope.data.handle && handle()">点击查看</a>
+          <a class="a-link" @click="watchColumn(scope.data)">点击查看</a>
         </template>
         <template slot="index_info" slot-scope="scope">
-          <a class="a-link" @click="!scope.data.handle && handle()">点击查看</a>
+          <a class="a-link" @click="watchIndex(scope.data)">点击查看</a>
         </template>
       </mh-table>
       <div class="page-pagination">
@@ -53,6 +53,10 @@
         ></pagination>
       </div>
     </template>
+    <template slot="page-footer">
+      <data-dictionary-column-page :param="columnParam" v-if="showColumn" @close="showColumn = false;"></data-dictionary-column-page>
+      <data-dictionary-index-page :param="indexParam" v-if="showIndex" @close="showIndex = false;"></data-dictionary-index-page>
+    </template>
   </page-template>
 </template>
 
@@ -61,11 +65,15 @@ import Mixins from "@/mixins/Mixins";
 import Tabs from "@/views/components/tab/Tabs";
 import { formatDateTime, getService } from "@/views/utils/utils";
 import DataDictionaryApi from "@/views/oracle/data-dictionary/DataDictionaryApi";
+import DataDictionaryColumPage from '@/views/oracle/data-dictionary/components/DataDictionaryColumnInfo';
+import DataDictionaryIndexPage from '@/views/oracle/data-dictionary/components/DataDictionaryIndexInfo'
 export default {
   name: "DataDictionaryPage",
   mixins: [Mixins],
   components: {
-    "mh-tabs": Tabs
+    "mh-tabs": Tabs,
+    "data-dictionary-column-page": DataDictionaryColumPage,
+    "data-dictionary-index-page": DataDictionaryIndexPage
   },
   data() {
     let _this = this;
@@ -80,6 +88,10 @@ export default {
       total: 0,
       selectVal: "table_name",
       searchStr: "",
+      columnParam: {},
+      showColumn: false,
+      indexParam: {},
+      showIndex: false,
       conditionNameList: [
         {
           label: "表名",
@@ -158,6 +170,7 @@ export default {
       let _this = this;
       if (_this.currSelectTab === tab.value) return;
       _this.currSelectTab = tab.value;
+      _this.pageIndex = 1;
       _this.queryList();
     },
     getCondition() {
@@ -218,6 +231,18 @@ export default {
       if (pageIndex === _this.pageIndex) return;
       _this.pageIndex = pageIndex;
       _this.queryList();
+    },
+    //查看列信息
+    watchColumn(param) {
+      let _this = this;
+      _this.columnParam =  param;
+      _this.showColumn = true;
+    },
+    //查看索引信息
+    watchIndex(param) {
+      let _this = this;
+      _this.indexParam = param;
+      _this.showIndex = true;
     }
   }
 };

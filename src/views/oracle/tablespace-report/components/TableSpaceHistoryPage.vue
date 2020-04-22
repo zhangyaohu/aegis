@@ -20,7 +20,7 @@
           inputClass="mh-input__search"
           style="padding: 0px 10px 0px 0px;"
         />
-        <button class="btn-primary" @click="historyQuery()">
+        <button class="btn-primary" @click="pageIndex = 1; historyQuery()">
           <i class="icon el-icon-search"></i>
           <span class="text">搜索</span>
         </button>
@@ -165,8 +165,8 @@ export default {
         start: (_this.pageIndex - 1) * _this.pageSize,
         service: _this.param.service,
 				[_this.selectVal]: _this.searchStr.trim(),
-				starttime: formatDateTime((new Date()).getTime() - 30 * 24 * 60 * 60 * 1000, 'yyyy-MM-dd hh:mm:ss'),
-				endtime: formatDateTime(new Date().getTime(), 'yyyy-MM-dd hh:mm:ss'),
+				starttime: formatDateTime((new Date(_this.param.gmt_create)).getTime() - 30 * 24 * 60 * 60 * 1000, 'yyyy-MM-dd hh:mm:ss'),
+				endtime: formatDateTime(new Date(_this.param.gmt_create).getTime(), 'yyyy-MM-dd hh:mm:ss'),
 				tablespace: _this.param.tablespace,
 		 }
 		},

@@ -46,6 +46,7 @@ function queryArgs(sql, args, callback) {
         try {
             pool.getConnection(function(err, connection) {
                 connection.query(sql, args, function(err, rows) {
+                    resolve( callback(err, rows));
                     callback(err, rows);
                     //释放链接
                     connection.release();

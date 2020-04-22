@@ -6,6 +6,18 @@ let DataDictionaryApi = {
 		           .then((resp) => {
 								 return resp;
 							 })
+	},
+	queryColumn: (param) => {
+		return Http.get('/oracle/data-dict/column/list', param)
+		           .then((resp) => {
+								 return resp;
+							 })
+	},
+	queryIndex: (param) => {
+		return Http.get('/oracle/data-dict/index/list', param)
+		           .then((resp) => {
+								 return resp;
+							 })
 	}
 } 
 

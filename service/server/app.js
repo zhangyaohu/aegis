@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var session = require('express-session');
+//日志处理
+const log4js = require('log4js');
+const Logger = require('./config/logger');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -51,9 +54,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 //对urlencoded请求体解析中间件,extended:true 高级模式 false:普通 没有区别
 app.use(bodyParser.urlencoded({ extended: true }));
-
+//app.use(log4js.connectLogger(Logger.info,  {level:'auto', format: (req, res, format) =>format(`:method :url  :status  :response-time ms ${res.reqUserId}`)}));
 app.use('/',function(req,res, next){
-  console.log(req.session.sid);
   if (!req.session.sid) {
     if(req.url === '/api/login') {
       next();

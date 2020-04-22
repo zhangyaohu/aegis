@@ -24,25 +24,28 @@
 .back-to__home{
 	position: absolute;
 	right: 0px;
-	top: 5px;
-	background: #fff;
+	top: 0px;
 	outline: none;
-	border: 1px solid #e88a8a;
+	border-radius: 3px;
 	border-radius: 2px;
+	background: #409eff;
 	font-size: 16px;
-	color: #409eff;
 	display: inline-block;
-	padding: 0px 12px;
+	padding: 0px 15px;
 	z-index: 34;
+	height: 32px;
+	line-height: 32px;
+	cursor: pointer;
 	&:hover{
 		.back-to__home___content{
 			display: block;
+			transition:cubic-bezier(0.25, 0.1, 0.25, 1.0) 0.5s, dispaly 0.3s;
 		}
 	}
 	&___content{
 		position: absolute;
-		top: 15px;
-		min-width: 100px;
+		top: 25px;
+		min-width: 110px;
 		min-height: 60px;
 		background: #f7aa4d;;
 		z-index: 999;
@@ -53,7 +56,7 @@
 		li{
 			line-height: 30px;
 			height: 30px;
-			color: #222;
+			color: #fff;
 			text-align: center;
 			font-size: 12px;
 		}
@@ -62,7 +65,7 @@
 			width: 18px;
 			height: 11px;
 			position: absolute;
-			right: 10px;
+			right: 12px;
 			transform: rotate(45deg);
 			top: -2px;
 			border-bottom: none;

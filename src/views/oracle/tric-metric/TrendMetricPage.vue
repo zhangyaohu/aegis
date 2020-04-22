@@ -43,6 +43,11 @@
       v-for="(data, index) in chunkDataSet[pageIndex - 1]"
       :key="index"
     >
+      <div class="trend-metric__chart_title">
+        Graph Kind: {{data[0].type}} | {{data[0].service}} - 
+        <a class="a-link">{{data[0].name}}</a>-
+        <a class="a-link">history</a>
+      </div>
       <line-metric :value="{data: setMetricData(data)}"></line-metric>
     </div>
     <div class="trend-metric__chart" v-cloak v-show="dataSet.length<=0" style="text-align: center;">
@@ -277,12 +282,14 @@ export default {
       let _this = this;
       if(tab === _this.currSelectTab) return;
       _this.currSelectTab = tab.value;
+      _this.pageIndex = 1;
       _this.init();
     },
     toggleQuota(tab) {
       let _this = this;
       if(tab === _this.currSelectQuotaTab) return;
       _this.currSelectQuotaTab = tab.value;
+      _this.pageIndex = 1;
       _this.init();
     },
     reorganizeData(dataList, title, func, color, sname) {
@@ -324,6 +331,7 @@ export default {
           label: item[0].label
         });
       });
+      console.log(value);
       return {
         dataList: value,
         title,

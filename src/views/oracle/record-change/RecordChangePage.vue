@@ -33,7 +33,7 @@
           style="padding: 0px 10px 0px 0px;"
         />
       </span>
-      <button class="btn-primary" @click="queryList()">
+      <button class="btn-primary" @click="pageIndex = 1; queryList()">
         <i class="icon el-icon-search"></i>
         <span class="text">搜索</span>
       </button>
@@ -41,7 +41,7 @@
     <template slot="page-table">
       <mh-table :data-source="dataSource" :loading="loading">
         <template slot="history" slot-scope="scope">
-          <a class="a-link" @click="!scope.data.handle && handle()">查看历史</a>
+          <a class="a-link" @click="watchHistory(scope.data)">查看历史</a>
         </template>
       </mh-table>
       <div class="page-pagination">
@@ -55,6 +55,9 @@
         ></pagination>
       </div>
     </template>
+    <template slot="page-footer">
+       <record-change-history-page :param="historyParam" :visiable="showHistory" v-if="showHistory" @close="showHistory = false;"></record-change-history-page>
+    </template>
   </page-template>
 </template>
 
@@ -64,14 +67,18 @@ import Tabs from "@/views/components/tab/Tabs";
 import {
   formatDateTime,
   exportTableData2,
-  getService
+  getService,
+  sizeRound,
+  toFixed2
 } from "@/views/utils/utils";
 import RecordChangeApi from "@/views/oracle/record-change/recordChangeApi";
+import RecordChangeHistoryPage from "@/views/oracle/record-change/components/RecordChangeHistoryPage";
 export default {
   name: "RecordChangePage",
   mixins: [Mixins],
   components: {
-    "mh-tabs": Tabs
+    "mh-tabs": Tabs,
+    "record-change-history-page": RecordChangeHistoryPage
   },
   data() {
     let _this = this;
@@ -91,12 +98,10 @@ export default {
           value: "maxdata2"
         }
       ],
-      currSelectTableTab: "none",
+      currSelectTableTab: "app",
+      historyParam: {},
+      showHistory: false,
       tableTabs: [
-        {
-          label: "其他",
-          value: "none"
-        },
         {
           label: "应用模式对象",
           value: "app"
@@ -212,6 +217,7 @@ export default {
       let _this = this;
       if (_this.currSelectTab === tab.value) return;
       _this.currSelectTab = tab.value;
+      _this.pageIndex = 1;
       _this.queryList();
     },
     getCondition() {
@@ -219,8 +225,7 @@ export default {
       return {
         limit: _this.pageSize,
         start: (_this.pageIndex - 1) * _this.pageSize,
-        owner:
-          _this.currSelectTableTab === "none" ? "" : _this.currSelectTableTab,
+        owner: _this.currSelectTableTab,
         service: _this.currSelectTab,
         [_this.selectVal]: _this.searchStr.trim()
       };
@@ -231,28 +236,25 @@ export default {
         normalFields = [
           "owner",
           "table_name",
-          "ins_diff",
-          "upd_diff",
-          "del_diff",
-          "num_rows",
-          "dml_diff",
           "truncated"
         ];
       if (normalFields.includes(field)) return item[field];
+      let normalSizeFields = ['num_rows', 'dml_diff', 'ins_diff', 'upd_diff', 'del_diff'];
+      if(normalSizeFields.includes(field)) return sizeRound(item[field])
       if (field === "gmt_create")
         return formatDateTime(item[field], "yyyy-MM-dd hh:mm:ss");
       if (field === "total_dmls")
         return item["dml_diff"] === 0
           ? 0
-          : (item["ins_diff"] / item["dml_diff"]) * 100;
+          : toFixed2(item["ins_diff"] / item["dml_diff"], 2);
       if (field === "upd_rate")
         return item["dml_diff"] === 0
           ? 0
-          : (item["upd_diff"] / item["dml_diff"]) * 100;
+          : toFixed2((item["upd_diff"] / item["dml_diff"]), 2);
       if (field === "del_rate")
         return item["del_diff"] === 0
           ? 0
-          : (item["del_diff"] / item["dml_diff"]) * 100;
+          : toFixed2((item["del_diff"] / item["dml_diff"]), 2);
     },
     //查询表格数据
     queryList() {
@@ -295,6 +297,12 @@ export default {
       if (_this.currSelectTableTab === tab.value) return;
       _this.currSelectTableTab = tab.value;
       _this.queryList();
+    },
+    //查看历史
+    watchHistory(param) {
+      let _this = this;
+      _this.historyParam = param;
+      _this.showHistory = true;
     }
   }
 };

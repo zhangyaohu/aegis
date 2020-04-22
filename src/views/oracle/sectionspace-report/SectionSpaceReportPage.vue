@@ -27,7 +27,7 @@
           style="padding: 0px 10px 0px 0px;"
         />
       </span>
-      <button class="btn-primary" @click="queryList()">
+      <button class="btn-primary" @click="pageIndex = 1; queryList()">
         <i class="icon el-icon-search"></i>
         <span class="text">搜索</span>
       </button>
@@ -35,7 +35,7 @@
     <template slot="page-table">
       <mh-table :data-source="dataSource" :loading="loading">
         <template slot="history" slot-scope="scope">
-          <a class="a-link" @click="!scope.data.handle && handle()">查看历史</a>
+          <a class="a-link" @click="watchHistory(scope.data)">查看历史</a>
         </template>
       </mh-table>
       <div class="page-pagination">
@@ -49,6 +49,9 @@
         ></pagination>
       </div>
     </template>
+    <template slot="page-footer">
+      <section-space-history-page :param="historyParam" v-if="showHistory" @close="showHistory = false;"></section-space-history-page>
+    </template>
   </page-template>
 </template>
 
@@ -57,11 +60,13 @@ import Mixins from "@/mixins/Mixins";
 import Tabs from "@/views/components/tab/Tabs";
 import { formatDateTime, getService } from "@/views/utils/utils";
 import SectionSpaceReportApi from "@/views/oracle/sectionspace-report/SectionSpaceReportApi";
+import SectionSpaceHistoryPage from '@/views/oracle/sectionspace-report/components/SectionSpaceHistoryPage';
 export default {
   mixins: [Mixins],
   name: "SectionSpaceReportPage",
   components: {
-    "mh-tabs": Tabs
+    "mh-tabs": Tabs,
+    "section-space-history-page": SectionSpaceHistoryPage
   },
   data() {
     let _this = this;
@@ -78,6 +83,8 @@ export default {
       sortBy: "gmt_create",
       selectVal: "segment_name",
       searchStr: "",
+      showHistory: false,
+      historyParam: {},
       conditionNameList: [
         {
           label: "段名",
@@ -174,6 +181,7 @@ export default {
       let _this = this;
       if (_this.currSelectTab === tab.value) return;
       _this.currSelectTab = tab.value;
+      _this.pageIndex = 1;
       _this.queryList();
     },
     getCondition() {
@@ -193,13 +201,12 @@ export default {
           "tablespace_name",
           "used_space",
           "partition_name",
-          "last_ddl_time",
           "diff_space",
           "segment_name",
           "segment_type"
         ];
       if (normalFields.includes(field)) return item[field];
-      if (field === "gmt_create")
+      if (field === "gmt_create" || field === "last_ddl_time")
         return formatDateTime(item[field], "yyyy-MM-dd hh:mm:ss");
     },
     //查询表格数据
@@ -244,6 +251,12 @@ export default {
         _this.sortDirection = sort.order === "descending" ? "-" : "+";
       _this.sortBy = sort.prop;
       _this.queryList();
+    },
+    //查看历史
+    watchHistory(param) {
+      let _this = this;
+      _this.historyParam = param;
+      _this.showHistory = true;
     }
   }
 };

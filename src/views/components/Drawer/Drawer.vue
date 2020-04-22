@@ -1,6 +1,7 @@
 <template>
-  <div class="mh-drawer" v-if="visiable">
-    <div class="mh-drawer__header">
+  <div v-if="visiable">
+    <div class="mh-drawer">
+       <div class="mh-drawer__header">
       <slot name="header"></slot>
       <span class="mh-drawer__close el-icon-close" @click="$emit('close')"></span>
     </div>
@@ -10,6 +11,8 @@
     <div class="mh-drawer__footer">
       <slot name="footer"></slot>
     </div>
+    </div>
+    <div class="mh-drawer__mask"></div>
   </div>
 </template>
 

@@ -28,7 +28,8 @@ let state = {
 	'hostTemplate': [],
 	'hostList': [],
 	'quoteReportHistory': [],
-	'orderReportHistory': []
+	'orderReportHistory': [],
+	'recordChangeHistory': []
 }
 
 let actions = {
